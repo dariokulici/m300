@@ -24,6 +24,23 @@ Dann starte ich einen Container mit dem gebauten Image auf lokalem Port 5200. Da
 
 <br>
 
+### Linux Namespaces
+
+Ein Namespace mit isoliertem Netzwerk und Prozessen wird mit dem folgenden Befehl erstellt. 
+
+`sudo unshare -n  -p --fork  --mount-proc sh`
+
+Die `--fork` Flag erstellt einen Child Prozess, damit die PID Isolierung technisch möglich ist. Die `--mount-proc` Flag mountet einen neuen `/proc` Ordner, weil `ps` sonst vom Host System die Prozesse listen würde. 
+
+<br>
+
+Innerhalb des Namespaces ist es nicht möglich jegliche Netzwerke zu pingen, da mit der `-n` Flag das Netzwerk isoliert wurde. Logischerweise sind keine Netzwerkadapter verfügbar, ausser Loopback. Man sieht, dass mit dem letzten Befehl nur ein Prozesse gelistet wird, und zwar den eben ausgeführten Befehl. 
+
+<img width=60% height=50% alt="04LinuxNamespace.png" src="media/04LinuxNamespace.png">
+
+
+<br>
+
 ### Docker Hub Limits
 
 Hier geht es um das "Pull Rate Limit", welches für verschiedene Arten von User Accounts zählt. 
