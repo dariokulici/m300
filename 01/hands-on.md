@@ -36,7 +36,7 @@ Die `--fork` Flag erstellt einen Child Prozess, damit die PID Isolierung technis
 
 Innerhalb des Namespaces ist es nicht möglich jegliche Netzwerke zu pingen, da mit der `-n` Flag das Netzwerk isoliert wurde. Logischerweise sind keine Netzwerkadapter verfügbar, ausser Loopback. Man sieht, dass mit dem letzten Befehl nur ein Prozesse gelistet wird, und zwar den eben ausgeführten Befehl. 
 
-<img width=60% height=50% alt="04LinuxNamespace.png" src="media/04LinuxNamespace.png">
+<img width=90% height=80% alt="04LinuxNamespace.png" src="media/04LinuxNamespace.png">
 
 
 <br>
