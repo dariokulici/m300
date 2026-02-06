@@ -22,3 +22,17 @@ Dann starte ich einen Container mit dem gebauten Image.
 
 <img width=60% height=50% alt="03AppRunning.png" src="media/03AppRunning.png">
 
+<br>
+
+### Docker Hub Limits
+
+Hier geht es um das "Pull Rate Limit", welches für verschiedene Arten von User Accounts zählt. 
+
+| User Typ                 | Pull Rate Limit für 6 Stunden | Anzahl öffentliche Repositories | Anzahl private Repositories |
+| ------------------------ | ----------------------------- | ------------------------------- | --------------------------- |
+| Business (authenticated) | Unlimited                     | Unlimited                       | Unlimited                   |
+| Team (authenticated)     | Unlimited                     | Unlimited                       | Unlimited                   |
+| Pro (authenticated)      | Unlimited                     | Unlimited                       | Unlimited                   |
+| Personal (authenticated) | 200                           | Unlimited                       | Up to 1                     |
+| Unauthenticated users    | 100                           | -                               | -                           |
+
