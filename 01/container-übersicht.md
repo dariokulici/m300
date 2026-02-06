@@ -25,3 +25,8 @@ Es gibt einen Default Namespace, auf dem alle Prozesse gemeinsam enthalten sind.
 ### Container Engine
 
 Container Engines wie bspw. Docker, Podman oder CRI-O sind nichts anderes als Wrapper für Linux Namespaces. Statt dass man selbst für einen Container mehrere Namespaces erstellen und managen muss, macht es die Container Engine. 
+
+<br>
+
+Weiter zu [Hands-on Übungen](hands-on.md)
+
