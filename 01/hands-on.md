@@ -20,7 +20,7 @@ Ich lasse mir eine Dockerfile generieren und ändere die Werte so, dass das Imag
 
 Dann starte ich einen Container mit dem gebauten Image. 
 
-<img width=80% height=100% alt="03AppRunning.png" src="media/03AppRunning.png">
+<img width=100% height=120% alt="03AppRunning.png" src="media/03AppRunning.png">
 
 <br>
 
