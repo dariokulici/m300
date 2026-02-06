@@ -18,7 +18,7 @@ Ich lasse mir eine Dockerfile generieren und ändere die Werte so, dass das Imag
 
 <br>
 
-Dann starte ich einen Container mit dem gebauten Image. 
+Dann starte ich einen Container mit dem gebauten Image auf lokalem Port 5200. Danach rufe ich die Seite auf und man sieht, dass der Container antwortet. 
 
 <img width=100% height=100% alt="03AppRunning.png" src="media/03AppRunning.png">
 
@@ -36,3 +36,4 @@ Hier geht es um das "Pull Rate Limit", welches für verschiedene Arten von User 
 | Personal (authenticated) | 200                           | Unlimited                       | Up to 1                     |
 | Unauthenticated users    | 100                           | -                               | -                           |
 
+Beispielsweise kann ein User mit Gratis Account, also Personal, jede 6 Stunden maximal 200 Pull Requests senden. 
