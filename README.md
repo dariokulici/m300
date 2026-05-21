@@ -11,4 +11,5 @@
 
 - [Journal](Lernjournal/Journal.md) 
 - [Idee](Projekt/idee.md) 
+- [Planung](Planung/Plan.md) 
 
