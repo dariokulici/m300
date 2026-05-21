@@ -5,5 +5,5 @@
 ### 🚩 01 - Intro
 
 - [Repetition Container](01/container-übersicht.md) 
-- [Hands-on Übungen](01/hands-on)
+- [Hands-on Übungen](01/hands-on.md)
 
