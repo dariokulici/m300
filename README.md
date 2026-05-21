@@ -7,3 +7,8 @@
 - [Repetition Container](01/container-übersicht.md) 
 - [Hands-on Übungen](01/hands-on.md)
 
+### 🛠️ Projekt
+
+- [Journal](Lernjournal/Journal.md) 
+- [Idee](Projekt/idee.md) 
+
