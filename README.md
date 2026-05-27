@@ -17,3 +17,9 @@
 
 ### 🛠️ Projekt - Umsetzung
 
+
+### 📘 Wiki
+
+- [kubectl Spickzettel](Wiki/kubectl.md) 
+
+
