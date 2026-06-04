@@ -18,6 +18,7 @@
 
 ### 🛠️ Projekt - Umsetzung
 - [Google Cloud Einrichtung](Umsetzung/gcloud.md) 
+- [Deployment Testing Loop](Umsetzung/deployment.md) 
 
 ### 📘 Wiki
 
