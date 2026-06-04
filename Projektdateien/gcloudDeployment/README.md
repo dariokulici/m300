@@ -1,6 +1,6 @@
-# YAML Files
+# YAML Ressourcen
 
-Folgende Dateien werden in der Cloud applied. 
+Folgende Dateien werden in der Cloud deployed. 
 
 - [Saleor Dashboard](DeploymentDashboard.yml)
 - [Saelor Main](DeploymentSaelor.yml)

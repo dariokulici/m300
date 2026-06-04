@@ -20,6 +20,9 @@
 - [Google Cloud Einrichtung](Umsetzung/gcloud.md) 
 - [Deployment Testing Loop](Umsetzung/deployment.md) 
 
+### 📂 Ressourcen
+- [YAML Deployments](Projektdateien/gcloudDeployment/README.md) 
+
 ### 📘 Wiki
 
 - [kubectl Spickzettel](Wiki/kubectl.md) 
