@@ -26,6 +26,13 @@ spec:
         image: ghcr.io/saleor/saleor-dashboard:3.23
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "10Mi"
+            cpu: "250m"
+          limits:
+            memory: "40Mi"
+            cpu: "1000m"
 ---
 apiVersion: v1
 kind: Service

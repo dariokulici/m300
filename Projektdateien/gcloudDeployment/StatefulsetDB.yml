@@ -27,6 +27,13 @@ spec:
         image: library/postgres:15-alpine
         ports:
         - containerPort: 5432
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "250m"
+          limits:
+            memory: "100Mi"
+            cpu: "1000m"
         env:
         - name: POSTGRES_USER
           value: "saleor"
@@ -76,6 +83,13 @@ spec:
         image: valkey/valkey:8.1-alpine
         ports:
         - containerPort: 6379
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "100m"
+          limits:
+            memory: "80Mi"
+            cpu: "500m"
         volumeMounts:
         - name: cache-data
           mountPath: /data

@@ -31,6 +31,13 @@ spec:
         volumeMounts:
         - name: tmpfs-volume
           mountPath: /tmp
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "250m"
+          limits:
+            memory: "80Mi"
+            cpu: "1000m"
       volumes:
       - name: tmpfs-volume
         emptyDir: {}
@@ -73,6 +80,13 @@ spec:
         ports:
         - containerPort: 1025
         - containerPort: 8025
+        resources:
+          requests:
+            memory: "10Mi"
+            cpu: "250m"
+          limits:
+            memory: "50Mi"
+            cpu: "1000m"
 ---
 apiVersion: v1
 kind: Service

@@ -32,6 +32,13 @@ spec:
         volumeMounts:
         - name: media-storage
           mountPath: /app/media
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "250m"
+          limits:
+            memory: "80Mi"
+            cpu: "1000m"
       volumes:
       - name: media-storage
         persistentVolumeClaim:

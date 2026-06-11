@@ -2,10 +2,10 @@
 
 Folgende Dateien werden in der Cloud deployed. 
 
-- [Saleor Dashboard](DeploymentDashboard.yml)
+- [Saleor Dashboard](static-ressources/DeploymentDashboard.yml)
 - [Saelor Main](DeploymentSaelor.yml)
-- [Zusatz Deployments](DeploymentZusatz.yml)
+- [Zusatz Deployments](static-ressources/DeploymentZusatz.yml)
 - [DB](StatefulsetDB.yml)
-- [Volumes](VolumeRessourcen.yml)
+- [Volumes](static-ressources/VolumeRessourcen.yml)
 
 

@@ -19,6 +19,7 @@
 ### 🛠️ Projekt - Umsetzung
 - [Google Cloud Einrichtung](Umsetzung/gcloud.md) 
 - [Deployment Testing Loop](Umsetzung/deployment.md) 
+- [Cluster Fehlerprotokoll](Umsetzung/fehlerprotokoll.md) 
 
 ### 📂 Ressourcen
 - [YAML Deployments](Projektdateien/gcloudDeployment/README.md) 
