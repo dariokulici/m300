@@ -27,5 +27,6 @@
 ### 📘 Wiki
 
 - [kubectl Spickzettel](Wiki/kubectl.md) 
+- [Kubeconfig Management](Wiki/kubernetes-config.md) 
 
 
