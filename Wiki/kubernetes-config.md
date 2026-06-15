@@ -12,9 +12,13 @@ Um mehrere Cluster zu managen können verschiedene Configs merged werden. In der
 cp -r ~/.kube ~/backup-kube
 ```
 
+<br>
+
 #### 2. Zusätzliche Config speichern
 
 Nehmen wir an die Config des zusätzlichen Clusters ist gespeichert unter `~/new-config`. 
+
+<br>
 
 #### 3. Variable KUBECONFIG vorbereiten
 
@@ -26,6 +30,8 @@ export KUBECONFIG=~/.kube/config:~/new-config
 
 Die Pfade müssen `:`  getrennt gespeichert werden. 
 
+<br>
+
 #### 4. Configs kombinieren
 
 ```bash
@@ -34,11 +40,15 @@ kubectl config view --flatten > .kube/config-merged
 
 Der Befehl greift auf die Variable `KUBECONFIG` zu und kombiniert alle definierten Configs zu einer Datei (`config-merged`). 
 
+<br>
+
 #### 5. KUBECONFIG bereinigen
 
 ```bash
 unset KUBECONFIG
 ```
+
+<br>
 
 #### 6. Neue Config hinterlegen
 
@@ -48,6 +58,8 @@ rm ~/new-config
 
 mv ~/.kube/config-merged ~/.kube/config
 ```
+
+<br>
 
 #### 7. Kontext prüfen
 
@@ -62,3 +74,6 @@ kubectl use-context CONTEXT
 ```
 
 Dieser Befehl wechselt den Kontext zum gewünschten Cluster. 
+
+<br>
+
