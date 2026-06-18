@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  labels:
+    app.kubernetes.io/instance: use1-cert-manager
+  name: production-cert-issuer
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: m300cluster.neurology477@passmail.net
+    privateKeySecretRef:
+      name: cert-manager-secret-production
+    solvers:
+    - http01:
+        ingress:
+          class: traefik

@@ -18,8 +18,8 @@
 
 ### 🛠️ Projekt - Umsetzung
 - [Google Cloud Einrichtung](Umsetzung/gcloud.md) 
-- [Deployment Testing Loop](Umsetzung/deployment.md) 
 - [Cluster Fehlerprotokoll](Umsetzung/fehlerprotokoll.md) 
+- [Lokales Deployment - Testing des Applikation Stack](lokal_deployment.md) 
 
 ### 📂 Ressourcen
 - [YAML Deployments](Projektdateien/gcloudDeployment/README.md) 
@@ -30,3 +30,5 @@
 - [Kubeconfig Management](Wiki/kubernetes-config.md) 
 
 
+### 👨🏾‍🦳 Old 
+- [Deployment Testing Loop](old_deployment.md) 

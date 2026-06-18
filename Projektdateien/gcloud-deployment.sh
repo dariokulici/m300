@@ -9,7 +9,7 @@ gcloud beta container \
     --release-channel \
 "regular" \
     --machine-type \
-"e2-micro" \
+"e2-small" \
     --image-type \
 "COS_CONTAINERD" \
     --disk-type \
@@ -96,7 +96,7 @@ gcloud beta container \
     --node-version \
 "1.35.3-gke.1389000" \
     --machine-type \
-"e2-micro" \
+"e2-small" \
     --image-type \
 "COS_CONTAINERD" \
     --disk-type \
@@ -110,9 +110,9 @@ disable-legacy-endpoints=true \
     --enable-autoupgrade \
     --enable-autorepair \
     --max-surge-upgrade \
-1 \
-    --max-unavailable-upgrade \
 0 \
+    --max-unavailable-upgrade \
+20 \
     --shielded-integrity-monitoring \
     --no-shielded-secure-boot \
     --node-locations \

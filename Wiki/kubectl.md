@@ -43,6 +43,9 @@ kubectl describe pod <pod-name>
 # Direkt in den Container einloggen (interaktive Terminal-Session / SSH-Ersatz)
 kubectl exec -it <pod-name> -- /bin/bash
 
+# Ressourcenverbauch jeder Node auslesen
+kubectl describe nodes | grep -A 4 -E "Resource.*Requests.*Limits"
+
 ```
 
 <br>
