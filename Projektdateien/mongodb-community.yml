@@ -1,6 +1,6 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
-metadata:
+metadata: 
   name: mongodb
   namespace: rocketchat
 spec:
@@ -8,14 +8,14 @@ spec:
   type: ReplicaSet
   version: "8.0.0"
   security:
-    authentication:
+    authentication: 
       modes:  ["SCRAM"]
     tls:
       enabled: false
   users:
   - name:  admin
     db:  admin
-    passwordSecretRef:
+    passwordSecretRef: 
       name: mongodb-admin-password
     scramCredentialsSecretName: admin-scram-credentials
     roles:
@@ -51,7 +51,7 @@ spec:
             resources:
               limits:
                 cpu:  1500m
-                memory:  700Mi
+                memory:  1Gi
               requests:
                 cpu: 500m
-                memory: 250Mi
+                memory: 300Mi

@@ -18,8 +18,11 @@
 
 ### 🛠️ Projekt - Umsetzung
 - [Google Cloud Einrichtung](Umsetzung/gcloud.md) 
-- [Cluster Fehlerprotokoll](Umsetzung/fehlerprotokoll.md) 
 - [Lokales Deployment - Testing des Applikation Stack](Umsetzung/lokal_deployment.md) 
+
+### 🚨 Fehlerprotokolle
+- [Cluster Deployment](Umsetzung/fehlerprotokoll.md) 
+- [MongoDB Pods](Umsetzung/mongoerror.md) 
 
 ### 📂 Ressourcen
 - [YAML Deployments](Projektdateien/gcloudDeployment/README.md) 
@@ -28,6 +31,7 @@
 
 - [kubectl Spickzettel](Wiki/kubectl.md) 
 - [Kubeconfig Management](Wiki/kubernetes-config.md) 
+- [MongoDB Cluster Initialisierung](Wiki/mongodb.md) 
 
 
 ### 👨🏾‍🦳 Old 
