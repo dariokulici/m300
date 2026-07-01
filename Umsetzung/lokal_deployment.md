@@ -61,6 +61,7 @@ Der Job wird gestartet und löscht sich nach dem Ausführen des Jobs.
 <img width=80% height=50% alt="10_JobComplete" src="../Medien/Umsetzung/new_deployment/10_JobComplete.png">
 
 <br>
+
 Zur Kontrolle stelle ich eine Verbindung zu einem Datenbank Pod auf und prüfe den Status des Clusters mit `rs.status()`. Auf dem unteren Bild sieht man, dass das Cluster erfolgreich initialisiert wurde. 
 
 <img width=50% height=50% alt="11_MongoClusterCheck" src="../Medien/Umsetzung/new_deployment/11_MongoClusterCheck.png">
