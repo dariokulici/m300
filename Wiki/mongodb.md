@@ -25,8 +25,18 @@ rs.initiate(
 
 ## Read erlauben
 
-Standardmässig können sekundäre Instanzen nicht die Datenbanken der primären Instanz lesen. Mit dem folgenden Befehl wird dies einmalig aktiviert, sodass die Datenbanken der primären Instanz geklont werden. 
+Standardmässig können sekundäre Instanzen nicht die Datenbanken der primären Instanz lesen. Mit dem folgenden Befehl wird dies pro Session aktiviert, sodass die Datenbanken der primären Instanz geklont werden. 
 
 ```js
 rs.slaveOk()
 ```
+
+<br>
+
+Wenn die Chat Applikation läuft und auf die Datenbank zugreifen muss kann im URI ein Wert, der angibt, die sekundären Instanzen zu präferieren, angegeben werden. 
+
+```bash
+mongodb://host1:27017,host2:27017/dbname?replicaSet=rsName&readPreference=secondaryPreferred
+```
+
+So gehen die Lesezugriffe auf die Datenbank an die sekundären Datenbanken und lasten die primäre Datenbank, die zuständig für Write Vorgänge ist, aus. 

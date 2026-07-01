@@ -1,0 +1,72 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-cluster-init
+  namespace: rocketchat
+spec:
+  backoffLimit: 5
+  template:
+    metadata:
+      labels:
+        app: mongo-cluster-init
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: mongo-init
+          image: mongo:8.0.0
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-initdb-root
+                  key: username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-initdb-root
+                  key: password
+          command:
+            - bash
+            - -c
+            - |
+              set -e
+
+              MONGO_HOSTS="mongo-0.mongo.rocketchat.svc.cluster.local mongo-1.mongo.rocketchat.svc.cluster.local mongo-2.mongo.rocketchat.svc.cluster.local"
+              PRIMARY_HOST="mongo-0.mongo.rocketchat.svc.cluster.local"
+
+              echo "Warte auf alle Mongo-Pods..."
+              for HOST in $MONGO_HOSTS; do
+                until mongosh --host "$HOST" --eval "db.adminCommand('ping')" > /dev/null 2>&1; do
+                  echo "  $HOST noch nicht erreichbar, warte 5s..."
+                  sleep 5
+                done
+                echo "  $HOST ist erreichbar."
+              done
+
+              echo "Pruefe, ob ReplicaSet bereits initialisiert ist..."
+              STATUS=$(mongosh --host "$PRIMARY_HOST" --quiet --eval "rs.status().ok" 2>/dev/null || echo "0")
+
+              if [ "$STATUS" = "1" ]; then
+                echo "ReplicaSet ist bereits initialisiert. Nichts zu tun."
+                exit 0
+              fi
+
+              echo "Initialisiere ReplicaSet 'rs0' auf $PRIMARY_HOST..."
+              mongosh --host "$PRIMARY_HOST" --eval '
+                rs.initiate({
+                  _id: "rs0",
+                  members: [
+                    { _id: 0, host: "mongo-0.mongo.rocketchat.svc.cluster.local:27017" },
+                    { _id: 1, host: "mongo-1.mongo.rocketchat.svc.cluster.local:27017" },
+                    { _id: 2, host: "mongo-2.mongo.rocketchat.svc.cluster.local:27017" }
+                  ]
+                })
+              '
+
+              echo "Warte, bis ein PRIMARY gewaehlt wurde..."
+              until [ "$(mongosh --host "$PRIMARY_HOST" --quiet --eval 'rs.isMaster().ismaster')" = "true" ]; do
+                echo "  Noch kein PRIMARY, warte 5s..."
+                sleep 5
+              done
+
+              echo "ReplicaSet 'rs0' ist erfolgreich initialisiert."

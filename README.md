@@ -25,7 +25,7 @@
 - [MongoDB Pods](Umsetzung/mongoerror.md) 
 
 ### 📂 Ressourcen
-- [YAML Deployments](Projektdateien/gcloudDeployment/README.md) 
+- [YAML Manifeste](Projektdateien/README.md) 
 
 ### 📘 Wiki
 
