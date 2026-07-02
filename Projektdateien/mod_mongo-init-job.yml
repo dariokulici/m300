@@ -1,0 +1,136 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mod-mongo-cluster-init
+  namespace: rocketchat
+spec:
+  backoffLimit: 5
+  template:
+    metadata:
+      labels:
+        app: mongo-cluster-init
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: mongo-init
+          image: mongo:8.0.0
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-initdb-root
+                  key: username
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-initdb-root
+                  key: password
+            - name: ROCKETCHAT_DB_USERNAME
+              value: "rocketchat"
+            - name: ROCKETCHAT_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-rocketchat-password
+                  key: password
+          command:
+            - bash
+            - -c
+            - |
+              set -e
+
+              MONGO_HOSTS="mongo-0.mongo.rocketchat.svc.cluster.local mongo-1.mongo.rocketchat.svc.cluster.local mongo-2.mongo.rocketchat.svc.cluster.local"
+              SEED_HOST="mongo-0.mongo.rocketchat.svc.cluster.local"
+
+              find_primary() {
+                for HOST in $MONGO_HOSTS; do
+                  IS_PRIMARY=$(mongosh --host "$HOST" --quiet --eval 'rs.isMaster().ismaster' 2>/dev/null || echo "false")
+                  if [ "$IS_PRIMARY" = "true" ]; then
+                    echo "$HOST"
+                    return 0
+                  fi
+                done
+                return 1
+              }
+
+              echo "Warte auf alle Mongo-Pods..."
+              for HOST in $MONGO_HOSTS; do
+                until mongosh --host "$HOST" --eval "db.adminCommand('ping')" > /dev/null 2>&1; do
+                  echo "  $HOST noch nicht erreichbar, warte 5s..."
+                  sleep 5
+                done
+                echo "  $HOST ist erreichbar."
+              done
+
+              echo "Pruefe, ob ReplicaSet bereits initialisiert ist..."
+              STATUS=$(mongosh --host "$SEED_HOST" --quiet --eval "rs.status().ok" 2>/dev/null || echo "0")
+
+              if [ "$STATUS" = "1" ]; then
+                echo "ReplicaSet ist bereits initialisiert, ueberspringe rs.initiate()."
+              else
+                echo "Initialisiere ReplicaSet 'rs0' (Seed-Host: $SEED_HOST)..."
+                mongosh --host "$SEED_HOST" --eval '
+                  rs.initiate({
+                    _id: "rs0",
+                    members: [
+                      { _id: 0, host: "mongo-0.mongo.rocketchat.svc.cluster.local:27017" },
+                      { _id: 1, host: "mongo-1.mongo.rocketchat.svc.cluster.local:27017" },
+                      { _id: 2, host: "mongo-2.mongo.rocketchat.svc.cluster.local:27017" }
+                    ]
+                  })
+                '
+              fi
+
+              echo "Suche aktuellen PRIMARY..."
+              PRIMARY_HOST=""
+              until [ -n "$PRIMARY_HOST" ]; do
+                PRIMARY_HOST=$(find_primary || true)
+                if [ -z "$PRIMARY_HOST" ]; then
+                  echo "  Noch kein PRIMARY gefunden, warte 5s..."
+                  sleep 5
+                fi
+              done
+              echo "PRIMARY ist aktuell: $PRIMARY_HOST"
+
+              echo "Pruefe, ob der Root-User bereits existiert..."
+              ROOT_EXISTS=$(mongosh --host "$PRIMARY_HOST" --quiet --eval '
+                db.getSiblingDB("admin").getUser("'"$MONGO_INITDB_ROOT_USERNAME"'") !== null
+              ' 2>/dev/null || echo "false")
+
+              if [ "$ROOT_EXISTS" = "true" ]; then
+                echo "Root-User '$MONGO_INITDB_ROOT_USERNAME' existiert bereits, ueberspringe Erstellung."
+              else
+                echo "Erstelle Root-User '$MONGO_INITDB_ROOT_USERNAME' in DB 'admin'..."
+                mongosh --host "$PRIMARY_HOST" --eval '
+                  db.getSiblingDB("admin").createUser({
+                    user: "'"$MONGO_INITDB_ROOT_USERNAME"'",
+                    pwd: "'"$MONGO_INITDB_ROOT_PASSWORD"'",
+                    roles: [
+                      { role: "root", db: "admin" }
+                    ]
+                  })
+                '
+                echo "Root-User '$MONGO_INITDB_ROOT_USERNAME' wurde erstellt."
+              fi
+
+              echo "Pruefe, ob der rocketchat-User bereits existiert..."
+              USER_EXISTS=$(mongosh --host "$PRIMARY_HOST" --quiet --eval '
+                db.getSiblingDB("rocketchat").getUser("'"$ROCKETCHAT_DB_USERNAME"'") !== null
+              ' 2>/dev/null || echo "false")
+
+              if [ "$USER_EXISTS" = "true" ]; then
+                echo "User '$ROCKETCHAT_DB_USERNAME' existiert bereits in DB 'rocketchat', ueberspringe Erstellung."
+              else
+                echo "Erstelle Datenbank 'rocketchat' und User '$ROCKETCHAT_DB_USERNAME'..."
+                mongosh --host "$PRIMARY_HOST" --eval '
+                  db.getSiblingDB("rocketchat").createUser({
+                    user: "'"$ROCKETCHAT_DB_USERNAME"'",
+                    pwd: "'"$ROCKETCHAT_DB_PASSWORD"'",
+                    roles: [
+                      { role: "readWrite", db: "rocketchat" }
+                    ]
+                  })
+                '
+                echo "User '$ROCKETCHAT_DB_USERNAME' wurde erstellt."
+              fi
+
+              echo "Mongo-Cluster-Init abgeschlossen."

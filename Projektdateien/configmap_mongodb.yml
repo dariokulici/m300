@@ -5,9 +5,10 @@ metadata:
   name: mongodb-config
 immutable: false
 data:
-  username: admin1
   mongodb.conf: |
     storage:
       dbPath: /data/db
     replication:
-        replSetName: "rs0"
+      replSetName: "rs0"
+    security:
+      authorization: enabled
