@@ -12,3 +12,4 @@ data:
       replSetName: "rs0"
     security:
       authorization: enabled
+      keyFile: /etc/mongo-keyfile/keyfile.txt

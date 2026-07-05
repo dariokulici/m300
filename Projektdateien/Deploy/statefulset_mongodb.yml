@@ -24,7 +24,7 @@ spec:
                 - --eval
                 - "db.adminCommand('ping')"
             initialDelaySeconds: 1
-            periodSeconds: 10
+            periodSeconds: 30
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 2
@@ -35,7 +35,7 @@ spec:
                 - --eval
                 - "db.adminCommand('ping')"
             initialDelaySeconds: 1
-            periodSeconds: 10
+            periodSeconds: 30
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 2
@@ -46,7 +46,7 @@ spec:
                 - --eval
                 - "db.adminCommand('ping')"
             initialDelaySeconds: 1
-            periodSeconds: 10
+            periodSeconds: 30
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 2
@@ -70,6 +70,16 @@ spec:
               mountPath: /data/db
             - name: mongodb-config
               mountPath: /etc/mongo
+            - name: mongodb-keyfile
+              mountPath: /etc/mongo-keyfile
+              readOnly: true
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 250m
+              memory: 500Mi
       volumes:
         - name: mongodb-config
           configMap:
@@ -77,6 +87,13 @@ spec:
             items:
               - key: mongodb.conf
                 path: mongodb.conf
+        - name: mongodb-keyfile
+          secret:
+            secretName: mongo-keyfile
+            defaultMode: 0400
+            items:
+              - key: keyfile
+                path: keyfile.txt
   volumeClaimTemplates:
     - metadata:
         name: mongo-volume
