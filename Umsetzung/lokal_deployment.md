@@ -112,7 +112,7 @@ Um das Frontend zu erreichen muss ein Tunnel eingerichtet werden. Auf dem nächs
 
 <br>
 
-Die Applikation unter der definierten Domain erreichbar. 
+Die Applikation ist unter der definierten Domain erreichbar. 
 
 <img width=90% height=50% alt="15_RocketchatBrowser" src="../Medien/Umsetzung/new_deployment/15_RocketchatBrowser.png">
 
