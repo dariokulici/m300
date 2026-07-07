@@ -78,7 +78,7 @@ spec:
               cpu: 1000m
               memory: 1Gi
             requests:
-              cpu: 250m
+              cpu: 50m
               memory: 500Mi
       volumes:
         - name: mongodb-config
@@ -99,7 +99,7 @@ spec:
         name: mongo-volume
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: standard
+        storageClassName: standard-rwo
         resources:
           requests:
             storage: 20Gi

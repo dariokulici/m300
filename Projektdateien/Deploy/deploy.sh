@@ -16,7 +16,7 @@ helm install traefik traefik/traefik \
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.3/cert-manager.yaml
 
 echo "Warte auf Cert-Manager Webhook..."
-kubectl wait --for=condition=Available deployment/cert-manager-webhook -n cert-manager --timeout=60s
+kubectl wait --for=condition=Available deployment/cert-manager-webhook -n cert-manager --timeout=300s
 
 kubectl apply -f Cert/clusterissuer.yml
 
@@ -35,14 +35,12 @@ kubectl wait --for=condition=Ready pod/mongo-0 pod/mongo-1 pod/mongo-2 -n rocket
 echo ""
 echo "Prüfe MongoDB Replica Set Status..."
 
-# Wir fangen sowohl die Standardausgabe als auch Fehlermeldungen ab
 set +e
 MONGO_OUTPUT=$(kubectl -n rocketchat exec mongo-0 -- mongosh --quiet --eval "rs.status().ok" 2>&1)
 set -e
 
-# Fall 1: Cluster läuft und antwortet mit "1" (noch keine Auth aktiv)
-# Fall 2: Mongosh wirft "Unauthorized" oder "AuthenticationFailed" -> Cluster & User existieren bereits
-if [[ "$MONGO_OUTPUT" == *"1"* || "$MONGO_OUTPUT" == *"Unauthorized"* || "$MONGO_OUTPUT" == *"AuthenticationFailed"* ]]; then
+
+if [[ "$MONGO_OUTPUT" == "1" || "$MONGO_OUTPUT" == *"requires authentication"* || "$MONGO_OUTPUT" == *"AuthenticationFailed"* ]]; then
     echo "--> MongoDB ist bereits initialisiert und abgesichert! Überspringe DB-Setup..."
 else
     echo "--> Kein aktives Replica Set gefunden (Meldung: $MONGO_OUTPUT). Starte MongoDB Konfiguration..."

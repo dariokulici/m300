@@ -19,6 +19,7 @@
 ### 🛠️ Projekt - Umsetzung
 - [Google Cloud Einrichtung](Umsetzung/gcloud.md) 
 - [Lokales Deployment - Testing des Applikation Stack](Umsetzung/lokal_deployment.md) 
+- [Cloud Deployment](Umsetzung/cloud_deployment.md) 
 
 ### 🚨 Fehlerprotokolle
 - [Cluster Deployment](Umsetzung/fehlerprotokoll.md) 
