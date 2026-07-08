@@ -1,5 +1,9 @@
 # Planung
 
+## Arbeitsschritte
+
+<br>
+
 ### Definierte Arbeitsschritte
 
 Arbeitsschritte, die anfangs definiert und chronologisch durchgeführt werden. 
@@ -25,3 +29,14 @@ Arbeitsschritte, die während des ganzen Projekts regelmässig durchzuführen si
 <br>
 
 Die Arbeitsschritte können und werden sich höchstwahrscheinlich im Verlauf des Projekts ändern. 
+
+
+<br>
+
+## Servicearchitektur
+
+<br>
+
+### Diagramm
+
+<img width=90% height=50% alt="21_RocketchatSetup" src="../Medien/Diagramme/ServiceArchitektur.png">

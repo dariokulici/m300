@@ -49,7 +49,17 @@ Nach dem neuen Ausrollen der Cert Manager Manifeste ist die Webseite durch ein L
 <img width=70% height=50% alt="22_HTTPS" src="../Medien/Umsetzung/new_deployment/22_HTTPS.png">
 
 
-## Monitoring (wird noch ergänzt)
+## Monitoring
 
+Der Agent wird über einen vorgefertigten Deploy Befehl direkt auf dem Cluster deployed. 
 
 <img width=90% height=50% alt="21_GrafanaDeploy" src="../Medien/Umsetzung/new_deployment/21_GrafanaDeploy.png">
+
+<br>
+
+Auf dem Dashboard werden die Metrics des Clusters sauber angezeigt. 
+
+<img width=90% height=50% alt="23_GrafanaOverview" src="../Medien/Umsetzung/new_deployment/23_GrafanaOverview.png">
+
+<br>
+
