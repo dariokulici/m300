@@ -63,3 +63,11 @@ Auf dem Dashboard werden die Metrics des Clusters sauber angezeigt.
 
 <br>
 
+### Alert
+
+Der Alert wird ausgeführt sobald ein Pod den Status `CrashLoopBackOff` erreicht. So können direkt Massnahmen zur Fehlerbehebung umgesetzt werden. 
+
+<img width=90% height=50% alt="24_GrafanaAlert" src="../Medien/Umsetzung/new_deployment/24_GrafanaAlert.png">
+
+<br>
+
